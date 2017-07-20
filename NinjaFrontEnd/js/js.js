@@ -68,7 +68,6 @@ function queryData() {
     //var t2 = document.getElementById('time2').value;
     //var dt2 = d2 + " " + t2;
     if (a && d1 && d2) {
-    a = parseInt(a);
     document.getElementById('textarea').innerHTML += "Scanning DataBase" + "\n";
 
        var params = {
@@ -79,7 +78,7 @@ function queryData() {
             "#time": "Timestamp"
         },
         ExpressionAttributeValues: {
-            ":Tap": "a",
+            ":Tap": a,
             ":date1": d1,
             ":date2": d2
         }
@@ -94,19 +93,19 @@ function queryData() {
         } else {
 
             document.getElementById('textarea').innerHTML += "Scan succeeded... " + "\n";
-            console.log(data);
             var myTable = ""
             var something = [];
 
             data.Items.forEach(function(tap) {
                 if (tap.payload.pour) {
-                ounces = parseFloat(ounces.toFixed(4))
-                //var date = new Date(tap.Timestamp + 'UTC');
-                var date = new Date(tap.Timestamp);
-                date = date.toString();
-                date = date.substring(date.indexOf(" ") + 1);
+                    var ounces =  tap.payload.pour /5800 * 33.814;
+                    ounces = parseFloat(ounces.toFixed(4))
+                    //var date = new Date(tap.Timestamp + 'UTC');
+                    var date = new Date(tap.Timestamp);
+                    date = date.toString();
+                    date = date.substring(date.indexOf(" ") + 1);
 
-                something.push(date + " | Tap: " + tap.Tap + " |  Ounces = " + ounces + "\n");
+                    something.push(date + " | Tap: " + tap.Tap + " |  Ounces = " + ounces + "\n");
                 }
                 
             });
