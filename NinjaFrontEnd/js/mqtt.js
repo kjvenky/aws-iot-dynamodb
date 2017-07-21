@@ -1,7 +1,7 @@
 // Configure Cognito identity pool
 AWS.config.region = 'us-east-1';
 var credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'us-east-1:your identity pool guid',
+    IdentityPoolId: 'us-east-1:',
 });
 
 //Getting AWS creds from Cognito is async, so we need to drive the rest of the mqtt client initialization in a callback
