@@ -27,36 +27,45 @@ function initClient(requestUrl) {
     var clientId = String(Math.random()).replace('.', '');
     var client = new Paho.MQTT.Client(requestUrl, clientId);
     var connectOptions = {
-        onSuccess: function () {
-            console.log('connected');
-
+        onSuccess: function (data) {
+            var topic = "test-iot/#";
+            
             // subscribe to the drawing
-            client.subscribe("aws/things/test-iot/shadow");
-
+            client.subscribe(topic);
+            
             // publish a lifecycle event
-            message = new Paho.MQTT.Message('{"id":"' + credentials.identityId + '"}');
-            message.destinationName = 'aws/things/test-iot/shadow';
-            console.log("I am here");
-            console.log(message);
+            data = "Hey I connected"
+            var message = new Paho.MQTT.Message("Hello");
+            message.destinationName = topic;
             client.send(message);
+            console.log("Message sent")
         },
         useSSL: true,
-        timeout: 3,
+        timeout: 10,
         mqttVersion: 4,
         onFailure: function (err) {
             console.error('connect failed');
             console.error(err);
-        }
-    };
+        },
+        
+    }
+
+    client.onMessageArrived =  function (message) {
+            console.log("Message arrived")
+            try {
+                console.log("msg arrived: ");
+            } catch (e) {
+                console.log("error! " + e);
+            }
+    }
+
+    client.onConnectionLost =  function(responseObject) {
+      console.log(responseObject)
+      if (responseObject.errorCode !== 0) {
+        console.log("onConnectionLost:"+responseObject.errorMessage);
+      }
+    }
 
     client.connect(connectOptions);
 
-    client.onMessageArrived = function (message) {
-        try {
-            console.log("msg arrived: " +  message.payloadString);
-        } catch (e) {
-            console.log("error! " + e);
-        }
-
-    };
 }
