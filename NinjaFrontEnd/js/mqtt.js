@@ -1,4 +1,4 @@
-"use strict"
+
 
 // Configure Cognito identity pool
 var credentials = new AWS.CognitoIdentityCredentials({
@@ -28,20 +28,25 @@ function initClient(requestUrl) {
     var client = new Paho.MQTT.Client(requestUrl, clientId);
     var connectOptions = {
         onSuccess: function (data) {
-            var topic = "test-iot/#";
+            console.log('connected');
+            var topic = "$aws/things/myThingName/shadow/get";
             
             // subscribe to the drawing
             client.subscribe(topic);
             
             // publish a lifecycle event
-            data = "Hey I connected"
-            var message = new Paho.MQTT.Message("Hello");
-            message.destinationName = topic;
-            client.send(message);
-            console.log("Message sent")
+            var ping_for_get = new Paho.MQTT.Message("");
+            ping_for_get.destinationName = `$aws/things/myThingName/shadow/get`;
+            var active_sync = function() {
+              console.log("Pinging client with empty message")
+              client.send(ping_for_get);
+              setTimeout(active_sync, 5000);
+            };
+            active_sync();
+
         },
         useSSL: true,
-        timeout: 10,
+        timeout: 20,
         mqttVersion: 4,
         onFailure: function (err) {
             console.error('connect failed');
@@ -51,9 +56,8 @@ function initClient(requestUrl) {
     }
 
     client.onMessageArrived =  function (message) {
-            console.log("Message arrived")
             try {
-                console.log("msg arrived: ");
+                console.log("msg arrived");
             } catch (e) {
                 console.log("error! " + e);
             }
