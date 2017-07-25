@@ -29,20 +29,10 @@ function initClient(requestUrl) {
     var connectOptions = {
         onSuccess: function (data) {
             console.log('connected');
-            var topic = "/myThing2/1";
+            var topic = "/myThing2/#";
             
             // subscribe to the drawing
             client.subscribe(topic);
-            
-            // publish a lifecycle event
-            var ping_for_get = new Paho.MQTT.Message("Hello world 1");
-            ping_for_get.destinationName = "/myThing2/1";
-            var active_sync = function() {
-              console.log("Pinging client with 'Hello world 1' message")
-              client.send(ping_for_get);
-              setTimeout(active_sync, 5000);
-            };
-            active_sync();
         },
         useSSL: true,
         timeout: 20,
@@ -51,6 +41,16 @@ function initClient(requestUrl) {
             console.error('connect failed');
             console.error(err);
         },
+        
+    }
+
+    client.onMessageArrived =  function (message) {
+            try {
+                  console.log("msg arrived");
+                console.log(message.payloadString)
+            } catch (e) {
+                console.log("error! " + e);
+            }
     }
 
     client.onConnectionLost =  function(responseObject) {

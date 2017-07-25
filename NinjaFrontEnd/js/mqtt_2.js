@@ -29,16 +29,16 @@ function initClient(requestUrl) {
     var connectOptions = {
         onSuccess: function (data) {
             console.log('connected');
-            var topic = "/myThing2/1";
+            var topic = "/myThing2/2";
             
             // subscribe to the drawing
             client.subscribe(topic);
             
             // publish a lifecycle event
-            var ping_for_get = new Paho.MQTT.Message("Hello world 1");
-            ping_for_get.destinationName = "/myThing2/1";
+            var ping_for_get = new Paho.MQTT.Message("Hello world 2");
+            ping_for_get.destinationName = "/myThing2/2";
             var active_sync = function() {
-              console.log("Pinging client with 'Hello world 1' message")
+              console.log("Pinging client with 'Hello world 2' message")
               client.send(ping_for_get);
               setTimeout(active_sync, 5000);
             };
