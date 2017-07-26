@@ -57,17 +57,15 @@ function scanData() {
 
 
 
-
-
 function queryData() {
     var a  = document.getElementById('tapID').value;
-    var d1 = document.getElementById('date1').value;
-    var d2 = document.getElementById('date2').value;
+    var d1 = moment($('#datetimepicker1 > input').val()).format()
+    var d2 = moment($('#datetimepicker2 > input').val()).format()
 
     // Testing for ISO String format 
     // var d1 = "2017-07-16T15:00:53.677Z";
     // var d2 = "2017-07-23T17:00:53.677Z";
-    
+
     if (a && d1 && d2) {
     document.getElementById('textarea').innerHTML += "Scanning DataBase" + "\n";
 
