@@ -60,7 +60,7 @@
             </div>
          </div>
       </nav>
-    <!--   <div class="container-fluid">
+      <div class="container-fluid">
          <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                <ul class="nav nav-sidebar">
@@ -68,35 +68,13 @@
                 <textarea  readonly id= "textarea" style="width:200px; height:50px padding-left:10px"></textarea>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-               <h1 class="page-header">SWB</h1>
-               <h5>
-                  <div class="row">
-                     <div class="col-md-2">Tap</div>
-                     <div class="col-md-2"><input type="text" id="tapID" maxlength="4" size="4"/></div>
-                  </div>
-                  <br>
-                  <div class="row">
-                     <div class="col-md-2">Start Time</div>
-                     <div class="col-md-2">
-                        <div style='max-width:250px' class="bfh-datepicker" data-format="y-m-d" data-date="today" id="date1">
-                        </div>
-                     </div>
-                  
-                     <div class="col-md-2">End Time</div>
-                     <div class="col-md-2">
-                        <div style='max-width:250px' class="bfh-datepicker" data-format="y-m-d" data-date="today" id="date2">
-                        </div>
-                     </div>
-                  </div>
-                  <br>
-                  <input class="btn btn-primary" id="queryData" type="button" value="Get Pours by Tap" onclick="queryData();" />
-                  <input class="btn btn-primary" id="queryData" type="button" value="Get All Pours" onclick="scanData();" />
-                  <input class="btn btn-info" type="reset" value="Reset" onClick="window.location.reload(false)">
-               </h5>
-               <div id="tablePrint"> </div>
+               <h1 class="page-header">Events</h1>
+               <div >
+                  <ul id="display_events"></ul>
+               </div>
             </div>
          </div>
-      </div> -->
+      </div>
       </div>
    </body>
 </html>

@@ -87,7 +87,9 @@ function queryData() {
     docClient.query(params, onQuery);
 
     function onQuery(err, data) {
+        
         console.log(data)
+        
         if (err) {
             document.getElementById('textarea').innerHTML += "Unable to scan the table: " + "\n" + JSON.stringify(err, undefined, 2);
         } else {

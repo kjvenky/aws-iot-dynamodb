@@ -46,8 +46,10 @@ function initClient(requestUrl) {
 
     client.onMessageArrived =  function (message) {
             try {
-                  console.log("msg arrived");
+                console.log("msg arrived");
+                console.log(message.destinationName)
                 console.log(message.payloadString)
+                $("#display_events").append("<li><b>" + message.destinationName + "</b>: " + message.payloadString + "</li>");
             } catch (e) {
                 console.log("error! " + e);
             }
